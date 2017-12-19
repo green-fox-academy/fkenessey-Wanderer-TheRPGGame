@@ -7,14 +7,12 @@ public class Board extends JComponent implements KeyListener {
 
   int testBoxX;
   int testBoxY;
-  static GameObject[][] characterList;
+  static IndexTable field = new IndexTable();
 
 
   public Board() {
     testBoxX = 300;
     testBoxY = 300;
-    CharacterField field = new CharacterField(72);
-    characterList = field.readPlan();
 
     // set the size of your draw board
     setPreferredSize(new Dimension(720, 720));
@@ -29,10 +27,8 @@ public class Board extends JComponent implements KeyListener {
     // you can create and draw an image using the class below e.g.
     /*PositionedImage image = new PositionedImage("yourimage.png", 300, 300);
     image.draw(graphics);*/
-    TileField field = new TileField(72);
-    field.drawPlan(graphics, field.readPlan());
-    CharacterField field2 = new CharacterField(72);
-    field2.drawPlan(graphics, characterList);
+    field.drawTilePlan(graphics);
+    field.drawCharacterPlan(graphics);
     repaint();
   }
 
@@ -83,20 +79,20 @@ public class Board extends JComponent implements KeyListener {
 
     if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
       testBoxY -= 100;
-      CharacterField field = new CharacterField(72);
-      characterList = field.moveHeroRight(characterList);
+      GameCharacter temp = new GameCharacter();
+      field.setCharacterAndTileLocationMatrix(temp.moveHeroRight(field.getCharacterAndTileLocationMatrix()));
     } else if(e.getKeyCode() == KeyEvent.VK_LEFT) {
       testBoxY += 100;
-      CharacterField field = new CharacterField(72);
-      characterList = field.moveHeroLeft(characterList);
+      GameCharacter temp = new GameCharacter();
+      field.setCharacterAndTileLocationMatrix(temp.moveHeroLeft(field.getCharacterAndTileLocationMatrix()));
     } else if(e.getKeyCode() == KeyEvent.VK_DOWN) {
       testBoxY += 100;
-      CharacterField field = new CharacterField(72);
-      characterList = field.moveHeroDown(characterList);
+      GameCharacter temp = new GameCharacter();
+      field.setCharacterAndTileLocationMatrix(temp.moveHeroDown(field.getCharacterAndTileLocationMatrix()));
     } else if(e.getKeyCode() == KeyEvent.VK_UP) {
       testBoxY += 100;
-      CharacterField field = new CharacterField(72);
-      characterList = field.moveHeroUp(characterList);
+      GameCharacter temp = new GameCharacter();
+      field.setCharacterAndTileLocationMatrix(temp.moveHeroUp(field.getCharacterAndTileLocationMatrix()));
     }
     // and redraw to have a new picture with the new coordinates
     repaint();
