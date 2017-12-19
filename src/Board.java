@@ -85,10 +85,18 @@ public class Board extends JComponent implements KeyListener {
       testBoxY -= 100;
       CharacterField field = new CharacterField(72);
       characterList = field.moveHeroRight(characterList);
-      repaint();
+    } else if(e.getKeyCode() == KeyEvent.VK_LEFT) {
+      testBoxY += 100;
+      CharacterField field = new CharacterField(72);
+      characterList = field.moveHeroLeft(characterList);
     } else if(e.getKeyCode() == KeyEvent.VK_DOWN) {
       testBoxY += 100;
-
+      CharacterField field = new CharacterField(72);
+      characterList = field.moveHeroDown(characterList);
+    } else if(e.getKeyCode() == KeyEvent.VK_UP) {
+      testBoxY += 100;
+      CharacterField field = new CharacterField(72);
+      characterList = field.moveHeroUp(characterList);
     }
     // and redraw to have a new picture with the new coordinates
     repaint();
