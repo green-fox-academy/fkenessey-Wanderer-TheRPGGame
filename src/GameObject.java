@@ -16,4 +16,20 @@ public class GameObject {
   public void setFilePath(String filePath) {
     this.filePath = filePath;
   }
+
+  public void moveLeft() {
+    setFilePath("hero-left.png");
+  }
+
+  public void moveRight() {
+    setFilePath("hero-right.png");
+  }
+
+  public void moveDown() {
+    setFilePath("hero-down.png");
+  }
+
+  public void moveUp() {
+    setFilePath("hero-up.png");
+  }
 }

@@ -1,24 +1,9 @@
 public class Hero extends GameCharacter {
 
   static int heroStep;
+  static int heroLevel;
 
   public Hero() {
-    super("hero-down.png");
-  }
-
-  public void moveLeft() {
-    setFilePath("hero-left.png");
-  }
-
-  public void moveRight() {
-    setFilePath("hero-right.png");
-  }
-
-  public void moveDown() {
-    setFilePath("hero-down.png");
-  }
-
-  public void moveUp() {
-    setFilePath("hero-up.png");
+    super("hero-down.png", 20 + 3 * d6(),2 * d6(), 5 + d6());
   }
 }

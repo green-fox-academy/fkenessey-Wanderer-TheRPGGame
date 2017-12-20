@@ -93,9 +93,10 @@ public class IndexTable {
           characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1] + 1] = temp;
           if (characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1] + 1] instanceof Hero) {
             Hero.heroStep++;
+            characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1] + 1].moveRight();
           }
         } else {
-          //attack
+          //attack battle(startCoordinates, startCoordinates[0]][startCoordinates[1] + 1);
         }
       } else if (!(characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1]] instanceof Hero)){
         moveAgain(startCoordinates);
@@ -113,6 +114,7 @@ public class IndexTable {
           characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1] - 1] = temp;
           if (characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1] - 1] instanceof Hero) {
             Hero.heroStep++;
+            characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1] - 1].moveLeft();
           }
         } else {
           //attack
@@ -133,6 +135,7 @@ public class IndexTable {
           characterAndTileLocationMatrix[startCoordinates[0] + 1][startCoordinates[1]] = temp;
           if (characterAndTileLocationMatrix[startCoordinates[0] + 1][startCoordinates[1]] instanceof Hero) {
             Hero.heroStep++;
+            characterAndTileLocationMatrix[startCoordinates[0] + 1][startCoordinates[1]].moveDown();
           }
         } else {
           //attack
@@ -153,6 +156,7 @@ public class IndexTable {
           characterAndTileLocationMatrix[startCoordinates[0] - 1][startCoordinates[1]] = temp;
           if (characterAndTileLocationMatrix[startCoordinates[0] - 1][startCoordinates[1]] instanceof Hero) {
             Hero.heroStep++;
+            characterAndTileLocationMatrix[startCoordinates[0] - 1][startCoordinates[1]].moveUp();
           }
         } else {
           //attack
@@ -210,5 +214,9 @@ public class IndexTable {
     }
     return coordinates;
   }
+
+  //to be finished
+  //public void battle(int[] attackerCoordinates, int[] defenderCoordinates) {
+
 
 }
