@@ -1,5 +1,7 @@
 public class Hero extends GameCharacter {
 
+  static int heroStep;
+
   public Hero() {
     super("hero-down.png");
   }
