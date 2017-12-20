@@ -9,7 +9,6 @@ import java.util.List;
 public class IndexTable {
 
   private int size;
-  private int heroStep;
   private String tileAccessPath = "Tilefield.txt";
   private String characterAndTileLocation = "Gamefield.txt";
   private GameObject[][] tileLocationMatrix = readPlan(tileAccessPath);
@@ -31,6 +30,8 @@ public class IndexTable {
   public void setCharacterAndTileLocationMatrix(GameObject[][] characterAndTileLocationMatrix) {
     this.characterAndTileLocationMatrix = characterAndTileLocationMatrix;
   }
+
+
 
   public GameObject[][] readPlan(String fileAccessPath) {
     List<String> content = new ArrayList<>();
@@ -85,11 +86,19 @@ public class IndexTable {
   public void moveCharacterRight(int[] startCoordinates) {
     if (startCoordinates[1] != characterAndTileLocationMatrix[0].length - 1) {
       if (!(characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1] + 1] instanceof Wall)) {
-        GameObject temp = new GameObject();
-        temp = characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1]];
-        characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1]] =
-                characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1] + 1];
-        characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1] + 1] = temp;
+        if (!(characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1] + 1] instanceof GameCharacter)) {
+          GameObject temp = characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1]];
+          characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1]] =
+                  characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1] + 1];
+          characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1] + 1] = temp;
+          if (characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1] + 1] instanceof Hero) {
+            Hero.heroStep++;
+          }
+        } else {
+          //attack
+        }
+      } else if (!(characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1]] instanceof Hero)){
+        moveAgain(startCoordinates);
       }
     }
   }
@@ -97,11 +106,19 @@ public class IndexTable {
   public void moveCharacterLeft(int[] startCoordinates) {
     if (startCoordinates[1] != 0) {
       if (!(characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1] - 1] instanceof Wall)) {
-        GameObject temp = new GameObject();
-        temp = characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1]];
-        characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1]] =
-                characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1] - 1];
-        characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1] - 1] = temp;
+        if (!(characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1] - 1] instanceof GameCharacter)) {
+          GameObject temp = characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1]];
+          characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1]] =
+                  characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1] - 1];
+          characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1] - 1] = temp;
+          if (characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1] - 1] instanceof Hero) {
+            Hero.heroStep++;
+          }
+        } else {
+          //attack
+        }
+      } else if (!(characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1]] instanceof Hero)) {
+        moveAgain(startCoordinates);
       }
     }
   }
@@ -109,11 +126,19 @@ public class IndexTable {
   public void moveCharacterDown(int[] startCoordinates) {
     if (startCoordinates[0] != characterAndTileLocationMatrix.length - 1) {
       if (!(characterAndTileLocationMatrix[startCoordinates[0] + 1][startCoordinates[1]] instanceof Wall)) {
-        GameObject temp = new GameObject();
-        temp = characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1]];
-        characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1]] =
-                characterAndTileLocationMatrix[startCoordinates[0] + 1][startCoordinates[1]];
-        characterAndTileLocationMatrix[startCoordinates[0] + 1][startCoordinates[1]] = temp;
+        if (!(characterAndTileLocationMatrix[startCoordinates[0] + 1][startCoordinates[1]] instanceof GameCharacter)) {
+          GameObject temp = characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1]];
+          characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1]] =
+                  characterAndTileLocationMatrix[startCoordinates[0] + 1][startCoordinates[1]];
+          characterAndTileLocationMatrix[startCoordinates[0] + 1][startCoordinates[1]] = temp;
+          if (characterAndTileLocationMatrix[startCoordinates[0] + 1][startCoordinates[1]] instanceof Hero) {
+            Hero.heroStep++;
+          }
+        } else {
+          //attack
+        }
+      } else if (!(characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1]] instanceof Hero)) {
+        moveAgain(startCoordinates);
       }
     }
   }
@@ -121,29 +146,62 @@ public class IndexTable {
   public void moveCharacterUp(int[] startCoordinates) {
     if (startCoordinates[0] != 0) {
       if (!(characterAndTileLocationMatrix[startCoordinates[0] - 1][startCoordinates[1]] instanceof Wall)) {
-        GameObject temp = new GameObject();
-        temp = characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1]];
-        characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1]] =
-                characterAndTileLocationMatrix[startCoordinates[0] - 1][startCoordinates[1]];
-        characterAndTileLocationMatrix[startCoordinates[0] - 1][startCoordinates[1]] = temp;
+        if (!(characterAndTileLocationMatrix[startCoordinates[0] - 1][startCoordinates[1]] instanceof GameCharacter)) {
+          GameObject temp = characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1]];
+          characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1]] =
+                  characterAndTileLocationMatrix[startCoordinates[0] - 1][startCoordinates[1]];
+          characterAndTileLocationMatrix[startCoordinates[0] - 1][startCoordinates[1]] = temp;
+          if (characterAndTileLocationMatrix[startCoordinates[0] - 1][startCoordinates[1]] instanceof Hero) {
+            Hero.heroStep++;
+          }
+        } else {
+          //attack
+        }
+      } else if (!(characterAndTileLocationMatrix[startCoordinates[0]][startCoordinates[1]] instanceof Hero)) {
+        moveAgain(startCoordinates);
       }
     }
   }
 
+  public void randomMovementGenerator(List<int[]> startCoordinates) {
+    if (Hero.heroStep % 2 == 0) {
+      for (int i = 0; i < startCoordinates.size(); i++) {
+        int direction = (int)(Math.random() * 100);
+        if (direction < 25) {
+          moveCharacterRight(startCoordinates.get(i));
+        } else if (direction >= 25 && direction < 50) {
+          moveCharacterLeft(startCoordinates.get(i));
+        } else if (direction >= 50 && direction < 75) {
+          moveCharacterDown(startCoordinates.get(i));
+        } else {
+          moveCharacterUp(startCoordinates.get(i));
+        }
+      }
+    }
+  }
+
+  public void moveAgain(int[] startCoordinates) {
+    List<int[]> coordinates = new ArrayList<>();
+    coordinates.add(startCoordinates);
+    randomMovementGenerator(coordinates);
+  }
+
   public List<int[]> findCharacter(String className) {
-    int[]characterCoordinates = new int[2];
     List<int[]> coordinates = new ArrayList<>();
     for (int i = 0; i < characterAndTileLocationMatrix.length; i++) {
       for (int j = 0; j < characterAndTileLocationMatrix[i].length; j++) {
         if (className.equals("Hero") && (characterAndTileLocationMatrix[i][j] instanceof Hero)) {
+          int[]characterCoordinates = new int[2];
           characterCoordinates[0] = i;
           characterCoordinates[1] = j;
           coordinates.add(characterCoordinates);
         } else if (className.equals("Boss") && (characterAndTileLocationMatrix[i][j] instanceof Boss)) {
+          int[]characterCoordinates = new int[2];
           characterCoordinates[0] = i;
           characterCoordinates[1] = j;
           coordinates.add(characterCoordinates);
         } else if (className.equals("Monster") && (characterAndTileLocationMatrix[i][j] instanceof Monster)) {
+          int[]characterCoordinates = new int[2];
           characterCoordinates[0] = i;
           characterCoordinates[1] = j;
           coordinates.add(characterCoordinates);

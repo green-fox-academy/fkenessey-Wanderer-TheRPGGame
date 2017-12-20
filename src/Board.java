@@ -81,25 +81,31 @@ public class Board extends JComponent implements KeyListener {
       testBoxY -= 100;
 
       field.moveCharacterRight(field.findCharacter("Hero").get(0));
-      Hero.heroStep++;
-      //field.setCharacterAndTileLocationMatrix(temp.moveBossLeft(field.getCharacterAndTileLocationMatrix()));
+      field.randomMovementGenerator(field.findCharacter("Boss"));
+      field.randomMovementGenerator(field.findCharacter("Monster"));
     } else if(e.getKeyCode() == KeyEvent.VK_LEFT) {
       testBoxY += 100;
-      //GameCharacter temp = new GameCharacter();
+
       field.moveCharacterLeft(field.findCharacter("Hero").get(0));
-      Hero.heroStep++;
+      field.randomMovementGenerator(field.findCharacter("Boss"));
+      field.randomMovementGenerator(field.findCharacter("Monster"));
+      //GameCharacter temp = new GameCharacter();
       //field.setCharacterAndTileLocationMatrix(temp.moveBossRight(field.getCharacterAndTileLocationMatrix()));
     } else if(e.getKeyCode() == KeyEvent.VK_DOWN) {
       testBoxY += 100;
       //GameCharacter temp = new GameCharacter();
       field.moveCharacterDown(field.findCharacter("Hero").get(0));
-      Hero.heroStep++;
+      field.randomMovementGenerator(field.findCharacter("Boss"));
+      field.randomMovementGenerator(field.findCharacter("Monster"));
+      //GameCharacter temp = new GameCharacter();
       //field.setCharacterAndTileLocationMatrix(temp.moveBossUp(field.getCharacterAndTileLocationMatrix()));
     } else if(e.getKeyCode() == KeyEvent.VK_UP) {
       testBoxY += 100;
-      //GameCharacter temp = new GameCharacter();
+
       field.moveCharacterUp(field.findCharacter("Hero").get(0));
-      Hero.heroStep++;
+      field.randomMovementGenerator(field.findCharacter("Boss"));
+      field.randomMovementGenerator(field.findCharacter("Monster"));
+      //GameCharacter temp = new GameCharacter();
       //field.setCharacterAndTileLocationMatrix(temp.moveBossDown(field.getCharacterAndTileLocationMatrix()));
     }
     // and redraw to have a new picture with the new coordinates
